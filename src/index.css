@@ -5,3 +5,20 @@
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
+body{
+  background-image: url("/bg.jpeg");
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;/*FOR SHIFTING DOWN A BIT*/
+}
+/* THIS THE THE MAIN SCREEN FOR OUR APPLICATION*/
+.container{
+  width: 90vw;
+  height: 90vh;
+  background-color: rgba(17, 25, 40, .75);
+  backdrop-filter: blur(5px) saturate(120%);/*FOR MAKING THE BACKGROUND BLUR*/
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, .125);
+  display: flex;
+}
