@@ -37,6 +37,15 @@ const ChatList=()=>{
                 </div>
 
                 </div>
+                <div className="item">
+                <img src="./avatar.png" alt=""/>
+                <div className="texts">
+                    <span>Sahil Shukla</span>
+                    <p>Hello</p>
+                </div>
+
+                </div>
+                
         </div>
     )
 }
