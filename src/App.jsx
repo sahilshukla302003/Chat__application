@@ -4,7 +4,7 @@ import Detail from "./components/detail/Detail";
 import Login from "./components/login/Login"; // Adjust path if necessary
 
 const App = () => {
-  const user = true; // Example: Set user to true to render List, Chat, and Detail
+  const user = false; // Example: Set user to true to render List, Chat, and Detail
 
   return (
     <div className="container">
@@ -14,7 +14,8 @@ const App = () => {
           <Chat />
           <Detail />
         </>
-      ) : (
+      ) :
+       (
         <Login />
       )}
     </div>
