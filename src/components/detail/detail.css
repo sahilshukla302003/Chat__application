@@ -6,7 +6,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 15px;
+        gap: 10px;
         border-bottom: 1px solid #dddddd35;
 
         img{
@@ -21,7 +21,7 @@
         padding: 20px;
         display: flex;
         flex-direction: column;
-        gap: 15px;
+        gap: 10px;
 
         .option{
             .title{
