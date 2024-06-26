@@ -4,14 +4,17 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage} from "firebase/storage";
 
+
+
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
-  authDomain: "nexuschat-8e6ed.firebaseapp.com",
-  projectId: "nexuschat-8e6ed",
-  storageBucket: "nexuschat-8e6ed.appspot.com",
-  messagingSenderId: "231915526466",
-  appId: "1:231915526466:web:ccaf94319465709c6210db"
+  authDomain: "nexuschat-35eed.firebaseapp.com",
+  projectId: "nexuschat-35eed",
+  storageBucket: "nexuschat-35eed.appspot.com",
+  messagingSenderId: "821143026926",
+  appId: "1:821143026926:web:fc750889e4b1b966c107ff"
 };
+
 
 
 const app = initializeApp(firebaseConfig);
