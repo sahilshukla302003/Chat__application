@@ -3,17 +3,27 @@ import List from "./components/list/List";
 import Detail from "./components/detail/Detail";
 import Login from "./components/login/Login"; // Adjust path if necessary
 import Notification from "./components/notification/Notification";
+import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./lib/Firebase";
 
 const App = () => {
-  const user = false; // Example: Set user to true to render List, Chat, and Detail
 
+  useEffect(()=> {
+    const unSub= onAuthStateChanged(auth,(user)=>{
+      console.log(user.uid);
+    })
+    return ()=>{
+      unSub();
+    }
+  },[])
   return (
     <div className="container">
       {user ? (
         <>
-          <List />
-          <Chat />
-          <Detail />
+          <List user={user}/>
+          <Chat user={user}/>
+          <Detail user={user}/>
         </>
       ) :
        (
