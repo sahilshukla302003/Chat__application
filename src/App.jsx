@@ -10,17 +10,17 @@ import { useUserStore } from "./lib/userstore";
 
 const App = () => {
 
-  const {currentUser , isLoading , fetchUseInfo} = useUserStore()
+  const {currentUser , isLoading , fetchUserInfo} = useUserStore()
 
 
   useEffect(()=> {
     const unSub= onAuthStateChanged(auth,(user)=>{
-      fetchUseInfo(user.uid);
+      fetchUserInfo(user.uid);
     })
     return ()=>{
       unSub();
     }
-  },[fetchUseInfo]);
+  },[fetchUserInfo]);
 
   console.log(currentUser)
 
