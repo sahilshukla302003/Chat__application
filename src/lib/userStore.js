@@ -1,27 +1,25 @@
 import { doc, getDoc } from 'firebase/firestore';
-import { create } from 'zustand'
+import { create } from 'zustand';
 import { db } from './Firebase';
 
 export const useUserStore = create((set) => ({
   currentUser: null,
-  isLoading:true,
-    fetchUserInfo:async(uid)=>{
-        if(!uid) return set({currentUser:null, isLoading:false});
-        
-        try{
-          const docRef = doc(db, "cities", "SF");
-          const docSnap = await getDoc(docRef);
+  isLoading: true,
+  fetchUserInfo: async (uid) => {
+    if (!uid) return set({ currentUser: null, isLoading: false });
 
-          if (docSnap.exists()) {
-          set ({currentUser:docSnap.data(), isLoading:false});
-        } else {
-          set ({currentUser:null, isLoading:false});
-        }
+    try {
+      const docRef = doc(db, "users", uid); // Adjust the collection and doc path as necessary
+      const docSnap = await getDoc(docRef);
 
-        }
-        catch(err){
-          console.log(err)
-          return set({ currentUser: null, isLoading:false});  
-        }
+      if (docSnap.exists()) {
+        set({ currentUser: docSnap.data(), isLoading: false });
+      } else {
+        set({ currentUser: null, isLoading: false });
+      }
+    } catch (err) {
+      console.log(err);
+      set({ currentUser: null, isLoading: false });
     }
-}))
+  },
+}));
