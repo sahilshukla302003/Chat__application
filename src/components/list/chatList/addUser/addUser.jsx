@@ -1,22 +1,89 @@
+import { getDocs, collection, query, where, serverTimestamp, setDoc, doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { db } from '../../../../lib/Firebase';
 import './addUser.css';
+import { useState } from 'react';
+import { update } from 'firebase/database';
+import { useUserStore } from '../../../../lib/userstore';
+
 const AddUser = () => {
+    const [user, setUser] = useState(null);
+    const {currentUser}=useUserStore()
+    const handleSearch = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const username = formData.get("username");
+
+        try {
+            const userRef = collection(db, "users");
+            const q = query(userRef, where("username", "==", username));
+            const querySnapshot = await getDocs(q);
+
+            if (!querySnapshot.empty) {
+                setUser(querySnapshot.docs[0].data());
+            } else {
+                setUser(null);
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    const handleAdd=async()=>{
+    
+        const chatRef=collection(db,"chats");
+        const userChatsRef=collection(db,"userchats");
+
+        
+        try {
+           const newChatRef=doc(chatRef)
+           
+            
+            await setDoc(newChatRef,{
+                createdAt: serverTimestamp(),
+                messages:[]
+            });
+
+            await updateDoc(doc(userChatsRef,user.id),
+            {
+                chats: arrayUnion({
+                    chatId:newChatRef.id,
+                    lastMessage:"",
+                    receiverId:currentUser.id,
+                    updatedAt:Date.now(),
+                }),
+            });
+
+            await updateDoc(doc(userChatsRef,currentUser.id),
+            {
+                chats: arrayUnion({
+                    chatId:newChatRef.id,
+                    lastMessage:"",
+                    receiverId:user.id,
+                    updatedAt:Date.now(),
+                }),
+            });
+
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     return (
-       <div className="addUser">
-       <form>
-        <input type="text" placeholder='Username' name='username' />
-        <button>Search</button>
-       </form>
+        <div className="addUser">
+            <form onSubmit={handleSearch}>
+                <input type="text" placeholder='Username' name='username' />
+                <button>Search</button>
+            </form>
 
-       <div className='user'>
-            <div className='detail'>
-                <img src="./avatar.png" alt="" />
-                <span>Sandeep</span>
-
-            </div>
-            <button>Add User</button>
-
-       </div>
-       </div>
+            {user && (
+                <div className='user'>
+                    <div className='detail'>
+                        <img src={user.avatar || "./avatar.png"} alt="" />
+                        <span>{user.username}</span>
+                    </div>
+                    <button onClick={handleAdd}>Add User</button>
+                </div>
+            )}
+        </div>
     );
 }
 

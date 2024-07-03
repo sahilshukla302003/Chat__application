@@ -31,6 +31,9 @@
             cursor: pointer;
 
         }
+        button:hover {
+            border: 2px solid white; /* Change the color to whatever you prefer */
+        }
     }
     .user{
         margin-top: 50px;
@@ -61,6 +64,7 @@
             cursor: pointer;
 
         }
+        
     }
 
 
